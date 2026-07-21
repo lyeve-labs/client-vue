@@ -1,0 +1,55 @@
+{
+  "name": "@lyeve-labs/client-vue",
+  "version": "0.1.2",
+  "description": "Vue 3 composables for the LyEve Core client - useQuery, useMutation, and the CmsPlugin provider",
+  "license": "MIT",
+  "author": "LyEve <info@lyeve.com>",
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup && publint",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "peerDependencies": {
+    "@lyeve-labs/client": ">=0.1.0",
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@lyeve-labs/client": "^0.2.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.4.0",
+    "publint": "^0.3.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "vue": "^3.5.0"
+  }
+}
