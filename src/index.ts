@@ -1,5 +1,5 @@
 import { createClient, type HttpClient } from '@lyeve/cms-client';
-import { ref, inject, provide, type InjectionKey, type Ref, type App } from 'vue';
+import { ref, inject, type InjectionKey, type Ref, type App } from 'vue';
 
 // Plugin
 
