@@ -1,6 +1,6 @@
 {
   "name": "@lyeve/cms-client-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vue 3 composables for the LyEve CMS client - useQuery, useMutation, and the CmsPlugin provider",
   "license": "MIT",
   "author": "LyEve Labs <hello@lyeve.com>",
