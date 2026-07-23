@@ -10,6 +10,7 @@ export interface VueCmsConfig {
 
 const CMS_KEY: InjectionKey<HttpClient> = Symbol('cms-client');
 
+/** Vue plugin that provides an HttpClient via app-level dependency injection. */
 export const CmsPlugin = {
   install(app: App, config: VueCmsConfig) {
     const base = config.baseUrl ?? '';
@@ -32,13 +33,17 @@ function useClient(): HttpClient {
 
 // Composables
 
-interface AsyncState<T> {
+export interface AsyncState<T> {
   data: Ref<T | null>;
   error: Ref<Error | null>;
   loading: Ref<boolean>;
   refetch: () => void;
 }
 
+/**
+ * Reactive query that fires immediately on mount and exposes loading/data/error state.
+ * Re-fetch by calling the returned `refetch` function.
+ */
 export function useQuery<T>(fetcher: (client: HttpClient) => Promise<T>): AsyncState<T> {
   const client = useClient();
   const data = ref<T | null>(null) as Ref<T | null>;
@@ -52,7 +57,6 @@ export function useQuery<T>(fetcher: (client: HttpClient) => Promise<T>): AsyncS
       error.value = null;
     } catch (e) {
       error.value = e as Error;
-      data.value = null;
     } finally {
       loading.value = false;
     }
@@ -63,18 +67,32 @@ export function useQuery<T>(fetcher: (client: HttpClient) => Promise<T>): AsyncS
   return { data, error, loading, refetch: run };
 }
 
-export function useMutation<T, V>(mutator: (client: HttpClient, vars: V) => Promise<T>): [(vars: V) => Promise<T>, Ref<boolean>] {
+/**
+ * Returns a mutate function and a reactive state object tracking the latest invocation.
+ * The mutate function throws on failure so callers can catch and handle errors inline.
+ */
+export function useMutation<T, V>(
+  mutator: (client: HttpClient, vars: V) => Promise<T>,
+): [(vars: V) => Promise<T>, { data: Ref<T | null>; error: Ref<Error | null>; loading: Ref<boolean> }] {
   const client = useClient();
+  const data = ref<T | null>(null) as Ref<T | null>;
+  const error = ref<Error | null>(null);
   const loading = ref(false);
 
   async function run(vars: V): Promise<T> {
     loading.value = true;
+    error.value = null;
     try {
-      return await mutator(client, vars);
+      const result = await mutator(client, vars);
+      data.value = result;
+      return result;
+    } catch (e) {
+      error.value = e as Error;
+      throw e;
     } finally {
       loading.value = false;
     }
   }
 
-  return [run, loading];
+  return [run, { data, error, loading }];
 }

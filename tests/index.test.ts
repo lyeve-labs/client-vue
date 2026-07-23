@@ -73,7 +73,7 @@ describe('useMutation', () => {
 
 	it('returns a mutate function and loading ref', () => {
 		app.runWithContext(() => {
-			const [mutate, loading] = useMutation((c, v: { name: string }) => c.post('/items', v));
+			const [mutate, { loading }] = useMutation((c, v: { name: string }) => c.post('/items', v));
 			expect(typeof mutate).toBe('function');
 			expect(loading).toHaveProperty('value');
 			expect(loading.value).toBe(false);
@@ -82,7 +82,7 @@ describe('useMutation', () => {
 
 	it('mutate calls the endpoint and returns result', async () => {
 		app.runWithContext(async () => {
-			const [mutate, loading] = useMutation((c, v: { name: string }) => c.post<{ id: string }>('/items', v));
+			const [mutate, { loading }] = useMutation((c, v: { name: string }) => c.post<{ id: string }>('/items', v));
 			const result = await mutate({ name: 'test' });
 			expect(result).toEqual({ id: 'new-1', name: 'test' });
 		});
@@ -90,7 +90,7 @@ describe('useMutation', () => {
 
 	it('sets loading to true during mutation', async () => {
 		app.runWithContext(async () => {
-			const [mutate, loading] = useMutation((c, v: { name: string }) => c.post('/items', v));
+			const [mutate, { loading }] = useMutation((c, v: { name: string }) => c.post('/items', v));
 			const promise = mutate({ name: 'test' });
 			// loading should be true while mutation is in flight
 			expect(loading.value).toBe(true);
