@@ -1,6 +1,6 @@
 {
   "name": "@lyeve-labs/client-vue",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Vue 3 composables for the LyEve Core client - useQuery, useMutation, and the CmsPlugin provider",
   "license": "MIT",
   "author": "LyEve <info@lyeve.com>",
