@@ -40,7 +40,7 @@ One plugin at the root, reactive refs everywhere else. No ceremony.
 
 - **Node 20** or newer
 - **Vue 3.0** or newer
-- **[@lyeve-labs/client](https://www.npmjs.com/package/@lyeve-labs/client)** `>=0.1.0`
+- **[@lyeve-labs/client](https://www.npmjs.com/package/@lyeve-labs/client)** `>=0.2.1`
 
 ## Install
 
