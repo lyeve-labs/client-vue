@@ -1,11 +1,11 @@
 {
   "name": "@lyeve-labs/client-vue",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Vue 3 composables for the LyEve Core client - useQuery, useMutation, and the CmsPlugin provider",
   "license": "MIT",
   "author": "LyEve <info@lyeve.com>",
   "type": "module",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": ">=20"
   },

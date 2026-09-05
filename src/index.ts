@@ -8,7 +8,7 @@ export interface VueCmsConfig {
   getHeaders?: () => Record<string, string>;
 }
 
-const CMS_KEY: InjectionKey<HttpClient> = Symbol("cms-client");
+const LYEVE_KEY: InjectionKey<HttpClient> = Symbol("lyeve-client");
 
 /** Vue plugin that provides an HttpClient via app-level dependency injection. */
 export const CmsPlugin = {
@@ -21,12 +21,12 @@ export const CmsPlugin = {
         headers: { ...init?.headers, ...config.getHeaders?.() },
       });
     });
-    app.provide(CMS_KEY, client);
+    app.provide(LYEVE_KEY, client);
   },
 };
 
 function useClient(): HttpClient {
-  const client = inject(CMS_KEY);
+  const client = inject(LYEVE_KEY);
   if (!client)
     throw new Error(
       "CmsPlugin must be installed via app.use(CmsPlugin, config)",
