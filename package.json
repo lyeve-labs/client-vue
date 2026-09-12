@@ -1,13 +1,21 @@
 {
   "name": "@lyeve-labs/client-vue",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Vue 3 composables for the LyEve Core client - useQuery, useMutation, and the CmsPlugin provider",
   "license": "MIT",
   "author": "LyEve <info@lyeve.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyeve-labs/client-vue.git"
+  },
+  "homepage": "https://github.com/lyeve-labs/client-vue#readme",
+  "bugs": {
+    "url": "https://github.com/lyeve-labs/client-vue/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@11.25.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -36,12 +44,14 @@
   },
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup && publint && node scripts/check-dist.mjs",
+    "build": "pnpm version:check && tsup && publint && node scripts/check-dist.mjs",
+    "version:check": "node scripts/check-version.mjs",
     "check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "@lyeve-labs/client": ">=0.2.1",
