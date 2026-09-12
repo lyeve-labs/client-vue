@@ -4,6 +4,14 @@
   "description": "Vue 3 composables for the LyEve Core client - useQuery, useMutation, and the CmsPlugin provider",
   "license": "MIT",
   "author": "LyEve <info@lyeve.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyeve-labs/client-vue.git"
+  },
+  "homepage": "https://github.com/lyeve-labs/client-vue#readme",
+  "bugs": {
+    "url": "https://github.com/lyeve-labs/client-vue/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@11.25.0",
   "engines": {
