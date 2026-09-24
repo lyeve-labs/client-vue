@@ -33,12 +33,13 @@ One plugin at the root, reactive refs everywhere else. No ceremony.
   component tree via `inject`/`provide`.
 - **useQuery:** reactive data fetching composable. Returns `data`, `error`,
   `loading` as Vue `Ref`s, plus a `refetch` function.
-- **useMutation:** mutation composable returning `[trigger, loading]`. The
-  trigger returns a Promise of the result; `loading` is a `Ref<boolean>`.
+- **useMutation:** mutation composable returning `[trigger, state]`. The
+  trigger returns a Promise of the result; `state` holds `data`, `error` and
+  `loading` as Vue `Ref`s.
 
 ## Requirements
 
-- **Node 20** or newer
+- **Node 24** or newer
 - **Vue 3.0** or newer
 - **[@lyeve-labs/client](https://www.npmjs.com/package/@lyeve-labs/client)** `>=0.2.1`
 
@@ -84,7 +85,7 @@ const { data, error, loading, refetch } = useQuery((client) =>
   <div v-if="loading">Loading...</div>
   <div v-else-if="error">{{ error.message }}</div>
   <ul v-else>
-    <li v-for="schema in data" :key="schema.id">{{ schema.name }}</li>
+    <li v-for="schema in data" :key="schema.name">{{ schema.display_name }}</li>
   </ul>
 </template>
 ```
@@ -96,8 +97,8 @@ const { data, error, loading, refetch } = useQuery((client) =>
 import { useMutation } from "@lyeve-labs/client-vue";
 import { deleteContent } from "@lyeve-labs/client-rest";
 
-const [remove, removing] = useMutation((client, id: string) =>
-  deleteContent(id, client),
+const [remove, { loading: removing }] = useMutation((client, id: string) =>
+  deleteContent("articles", id, client),
 );
 
 async function handleDelete(id: string) {
@@ -139,10 +140,13 @@ function useQuery<T>(fetcher: (client: HttpClient) => Promise<T>): {
 ```ts
 function useMutation<T, V>(
   mutator: (client: HttpClient, vars: V) => Promise<T>,
-): [(vars: V) => Promise<T>, Ref<boolean>];
+): [
+  (vars: V) => Promise<T>,
+  { data: Ref<T | null>; error: Ref<Error | null>; loading: Ref<boolean> },
+];
 ```
 
-Returns a tuple: `[trigger, loading]`.
+Returns a tuple: `[trigger, state]`.
 
 ## Local development
 
