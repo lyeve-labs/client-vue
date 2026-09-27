@@ -34,7 +34,7 @@ One plugin at the root, reactive refs everywhere else. No ceremony.
 - **useQuery:** reactive data fetching composable. Returns `data`, `error`,
   `loading` as Vue `Ref`s, plus a `refetch` function.
 - **useMutation:** mutation composable returning `[trigger, state]`. The
-  trigger returns a Promise of the result; `state` holds `data`, `error` and
+  trigger returns a Promise of the result. `state` holds `data`, `error` and
   `loading` as Vue `Ref`s.
 
 ## Requirements
@@ -168,7 +168,7 @@ tests/               # vitest test suite
 ## Versioning
 
 `@lyeve-labs/client-vue` follows [SemVer](https://semver.org). While under `1.0`,
-breaking changes bump the **minor** version; additive changes bump the **patch**.
+breaking changes bump the **minor** version. Additive changes bump the **patch**.
 Every release is logged in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Contributing
