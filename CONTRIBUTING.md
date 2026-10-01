@@ -3,8 +3,8 @@
 ## Quick start
 
 ```bash
-git clone git@github.com:lyeve-labs/cms-client-vue.git
-cd cms-client-vue
+git clone https://github.com/lyeve-labs/client-vue.git
+cd client-vue
 pnpm install
 pnpm test         # verify everything works
 ```
